@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Personal
+build
+.DS_store
+.cache
+.idea
