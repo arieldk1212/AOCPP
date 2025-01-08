@@ -36,3 +36,4 @@ build
 .DS_store
 .cache
 .idea
+input.txt
