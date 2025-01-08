@@ -1,21 +1,23 @@
 #include "2024/Day1.hpp"
 
-#include "read_input.hpp"
-
 #include <chrono>
+#include <filesystem>
+#include <fstream>
 #include <iostream>
 
 int main() {
 
-  auto data = read_file("input.txt");
-  if (!data.is_open()) {
+  std::filesystem::path Path{"../input.txt"};
+  std::ifstream Data{Path};
+
+  if (!Data.is_open()) {
     std::cout << "File Error";
     return 1;
   }
 
   auto start = std::chrono::high_resolution_clock::now();
   /* ------ Insert Computation Here ------ */
-  auto result = aoc_2024_day1(data);
+  auto result = aoc_2024_day1(Data);
   /* ------------------------------------- */
   auto stop = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = stop - start;

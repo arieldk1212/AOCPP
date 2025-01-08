@@ -9,12 +9,13 @@
  */
 
 #include <cstdint>
+#include <fstream>
 #include <string>
 #include <vector>
 
-decltype(auto) aoc_2024_day1(std::ifstream &data) {
+decltype(auto) aoc_2024_day1(const std::ifstream &data) {
   std::vector<int> vec_data;
-  
+
   return true;
 }
 
@@ -29,6 +30,5 @@ int get_distance_from_numbers(int num1, int num2) {
 void write_to_buffer(int result, std::vector<int> &buffer) {
   buffer.emplace_back(result);
 }
-
 
 #endif
