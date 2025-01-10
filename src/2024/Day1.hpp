@@ -8,16 +8,14 @@
  * third-smallest..).
  */
 
-#include <cstdint>
+#include "../utils/delimitation.hpp"
+#include <algorithm>
+#include <cstddef>
 #include <fstream>
+#include <iostream>
+#include <numeric>
 #include <string>
 #include <vector>
-
-decltype(auto) aoc_2024_day1(const std::ifstream &data) {
-  std::vector<int> vec_data;
-
-  return true;
-}
 
 int get_distance_from_numbers(int num1, int num2) {
   int result = num1 - num2;
@@ -25,10 +23,28 @@ int get_distance_from_numbers(int num1, int num2) {
     return result;
   }
   return (result * -1);
-};
+}
 
-void write_to_buffer(int result, std::vector<int> &buffer) {
-  buffer.emplace_back(result);
+void write_to_buffer(int &result, int &total) { total += result; }
+
+bool aoc_2024_day1(std::ifstream &data) {
+  int total_distance = 0;
+
+  std::for_each(
+      std::istream_iterator<Delimitor<' '>>(data),
+      std::istream_iterator<Delimitor<' '>>(), [&](std::string str) mutable {
+        size_t str_size = str.size() / 2;
+        std::string first = str.substr(0, str_size);
+        // std::cout << first;
+        std::string second = str.substr(str_size, '\n');
+        std::cout << second;
+        // int first_num = std::stoi(first);
+        // int second_num = std::stoi(second);
+        // auto result = get_distance_from_numbers(first_num, second_num);
+        // write_to_buffer(result, total_distance);
+      });
+  std::cout << total_distance;
+  return true;
 }
 
 #endif

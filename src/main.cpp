@@ -7,7 +7,7 @@
 int main() {
 
   std::filesystem::path Path{"../input.txt"};
-  std::ifstream Data{Path};
+  static std::ifstream Data{Path};
 
   if (!Data.is_open()) {
     std::cout << "File Error";
@@ -16,7 +16,10 @@ int main() {
 
   auto start = std::chrono::high_resolution_clock::now();
   /* ------ Insert Computation Here ------ */
-  auto result = aoc_2024_day1(Data);
+
+  bool result = aoc_2024_day1(Data);
+
+  Data.close();
   /* ------------------------------------- */
   auto stop = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = stop - start;
