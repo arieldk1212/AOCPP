@@ -20,6 +20,7 @@ int main() {
   bool result = aoc_2024_day1(Data);
 
   Data.close();
+  std::cout << "\n";
   /* ------------------------------------- */
   auto stop = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = stop - start;

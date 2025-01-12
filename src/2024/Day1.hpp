@@ -11,18 +11,17 @@
 #include "../utils/delimitation.hpp"
 #include <algorithm>
 #include <cstddef>
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <numeric>
+#include <random>
+#include <sstream>
 #include <string>
 #include <vector>
 
 int get_distance_from_numbers(int num1, int num2) {
-  int result = num1 - num2;
-  if (result) {
-    return result;
-  }
-  return (result * -1);
+  return std::abs(num1 - num2);
 }
 
 void write_to_buffer(int &result, int &total) { total += result; }
@@ -30,19 +29,19 @@ void write_to_buffer(int &result, int &total) { total += result; }
 bool aoc_2024_day1(std::ifstream &data) {
   int total_distance = 0;
 
-  std::for_each(
-      std::istream_iterator<Delimitor<' '>>(data),
-      std::istream_iterator<Delimitor<' '>>(), [&](std::string str) mutable {
-        size_t str_size = str.size() / 2;
-        std::string first = str.substr(0, str_size);
-        // std::cout << first;
-        std::string second = str.substr(str_size, '\n');
-        std::cout << second;
-        // int first_num = std::stoi(first);
-        // int second_num = std::stoi(second);
-        // auto result = get_distance_from_numbers(first_num, second_num);
-        // write_to_buffer(result, total_distance);
-      });
+  std::for_each(std::istream_iterator<Delimitor<'\n'>>(data),
+                std::istream_iterator<Delimitor<'\n'>>(),
+                [&](const std::string str) mutable {
+                  if (!str.empty()) {
+                    std::istringstream str_stream(str);
+                    int left, right;
+                    str_stream >> left >> right;
+                    if (str_stream) {
+                      auto result = get_distance_from_numbers(left, right);
+                      write_to_buffer(result, total_distance);
+                    }
+                  }
+                });
   std::cout << total_distance;
   return true;
 }
