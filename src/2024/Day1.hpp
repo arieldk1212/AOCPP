@@ -8,61 +8,57 @@
  * third-smallest..).
  */
 
-#include "../utils/delimitation.hpp"
-#include <algorithm>
 #include <cstddef>
+#include <cstdint>
 #include <cstdlib>
 #include <fstream>
-#include <functional>
 #include <iostream>
-#include <iterator>
-#include <numeric>
-#include <random>
-#include <ranges>
-#include <sstream>
 #include <string>
 #include <vector>
 
 int get_distance_from_numbers(int num1, int num2) {
   return std::abs(num1 - num2);
-  auto x = std::function<void(int)>();
 }
 
-void write_to_buffer(int &result, int &total) { total += result; }
-
 bool aoc_2024_day1(std::ifstream &data) {
-  int total_distance = 0;
+  std::string stream;
+  std::size_t score = 0;
+  std::vector<uint32_t> leftv, rightv;
 
-  // std::for_each(std::istream_iterator<Delimitor<'\n'>>(data),
-  //               std::istream_iterator<Delimitor<'\n'>>(),
-  //               [&](const std::string str) mutable {
-  //                 if (!str.empty()) {
-  //                   std::istringstream str_stream(str);
-  //                   int left, right;
-  //                   str_stream >> left >> right;
-  //                   if (str_stream) {
-  //                     auto result = get_distance_from_numbers(left, right);
-  //                     write_to_buffer(result, total_distance);
-  //                   }
-  //                 }
-  //               });
-  // std::cout << total_distance;
-
-  std::unordered_map<int, uint32_t> left, right;
-  std::for_each(
-      std::istream_iterator<std::string>(data),
-      std::istream_iterator<std::string>(),
-      [next_cont = &left, prev_cont = &right](std::string str) mutable {
-        ++(*next_cont)[str.size()];
-        std::swap(next_cont, prev_cont);
-      });
-
-  size_t score = 0;
-  for (auto [n, times] : left) {
-    score += n * times * (right.contains(n) ? right[n] : 0);
+  while (std::getline(data, stream)) {
+    leftv.push_back(std::stoi(stream.substr(0, 5)));
+    rightv.push_back(std::stoi(stream.substr(8, 5)));
   }
 
-  std::cout << score << std::endl;
+  /* now we need to sort right, left */
+  for (int i = 1; i < rightv.size(); ++i) {
+    auto Key = rightv[i];
+    auto Prev = i - 1;
+    while (Prev >= 0 && Key < rightv[Prev]) {
+      rightv[Prev + 1] = rightv[Prev];
+      Prev--;
+    }
+    rightv[Prev + 1] = Key;
+  }
+
+  for (int i = 1; i < leftv.size(); ++i) {
+    auto Key = leftv[i];
+    auto Prev = i - 1;
+    while (Prev >= 0 && Key < leftv[Prev]) {
+      leftv[Prev + 1] = leftv[Prev];
+      Prev--;
+    }
+    leftv[Prev + 1] = Key;
+  }
+
+  for (int i = 0; i < leftv.size(); i++) {
+    int curleft = static_cast<int>(leftv[i]);
+    int curright = static_cast<int>(rightv[i]);
+    score += get_distance_from_numbers(curleft, curright);
+  }
+
+  std::cout << score;
+
   return true;
 }
 
