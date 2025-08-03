@@ -1,11 +1,12 @@
-#include "2024/Day1.hpp"
+#include "2024/Day2.hpp"
 
 #include <chrono>
 #include <iostream>
 
 int main() {
 
-  static std::ifstream Data{"../input.txt"};
+  // static std::ifstream Data{"../inputs/day1_input.txt"};
+  static std::ifstream Data{"../inputs/day2_input.txt"};
 
   if (!Data.is_open()) {
     std::cout << "File Error";
@@ -15,9 +16,11 @@ int main() {
   auto start = std::chrono::high_resolution_clock::now();
   /* ------ Insert Computation Here ------ */
 
-  aoc_2024_day1(Data);
-
+  // aoc_2024_day1(Data);
+  // aoc_2024_day1_2(Data);
+  aoc_2024_day2(Data);
   Data.close();
+
   std::cout << "\n";
   /* ------------------------------------- */
   auto stop = std::chrono::high_resolution_clock::now();
