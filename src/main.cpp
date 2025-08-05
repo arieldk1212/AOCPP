@@ -1,11 +1,11 @@
-#include "2024/Day3.hpp"
+#include "2024/Day4.hpp"
 
 #include <chrono>
 #include <iostream>
 
 int main() {
 
-  static std::ifstream Data{"../inputs/day3_input.txt"};
+  static std::ifstream Data{"../inputs/day4_input.txt"};
 
   if (!Data.is_open()) {
     std::cout << "File Error";
@@ -15,7 +15,7 @@ int main() {
   auto start = std::chrono::high_resolution_clock::now();
   /* ------ Insert Computation Here ------ */
 
-  aoc_2024_day3(Data);
+  aoc_2024_day4(Data);
 
   Data.close();
 
